@@ -1,0 +1,32 @@
+<body class="card shadow">
+
+  <header>
+    <h1>Trabajadores</h1>
+  </header>
+
+  <div>
+
+    <div>
+      <input id="input_search" type="search" (keyup)="filter()" placeholder="Buscar por nombre o por cédula">
+    </div>
+
+    <div>
+      <h2>{{date}}</h2>
+      <button>Asignación de cajuelas</button>
+      <button>Ver salarios</button>
+    </div>
+  </div>
+
+  <!-- Employees list -->
+  <div>
+    <div *ngFor="let employee of employee_list">
+      <div class="card shadow" *ngIf="employee.display == true">
+        <span>{{employee.id_card}} {{employee.name}}</span>
+        <button (click)="clickOnEmployee(employee)">Ver</button>
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
