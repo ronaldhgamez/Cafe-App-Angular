@@ -22,7 +22,7 @@
     <div *ngFor="let employee of employee_list">
       <div class="card shadow" *ngIf="employee.display == true">
         <span>{{employee.id_card}} {{employee.name}}</span>
-        <button (click)="clickOnEmployee(employee)">Ver</button>
+        <button class='btn2' (click)="clickOnEmployee(employee)">Ver</button>
       </div>
 
     </div>

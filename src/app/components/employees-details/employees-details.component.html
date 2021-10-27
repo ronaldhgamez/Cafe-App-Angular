@@ -1,0 +1,31 @@
+<body>
+
+  <div class="card shadow">
+
+    <label for="name">Nombre</label><br>
+    <input id="name" value={{name}} required [disabled]="isEditing ? null : true">
+    <br><br>
+
+    <label for="card_id">Cédula</label><br>
+    <input id="card_id" value={{card_id}} required [disabled]="isEditing ? null : true">
+    <br><br>
+
+    <label for="tel">Teléfono</label><br>
+    <input id="tel" value={{tel}} required [disabled]="isEditing ? null : true">
+    <br><br>
+
+    <label for="emergency">Teléfono de emergencia</label><br>
+    <input id="emergency" value={{emergency}} [disabled]="isEditing ? null : true">
+    <br><br>
+
+    <label for="age">Edad</label><br>
+    <input id="age" type="number" value={{age}} min="10" max="100" required [disabled]="isEditing ? null : true">
+    <br><br>
+
+    <button class="btn2">Volver</button>
+    <button class="btn2" (click)="isEditing=!isEditing">Editar</button>
+    <button class="btn2" (click)="saveNewValues()" *ngIf="isEditing">Guardar</button>
+
+  </div>
+
+</body>
