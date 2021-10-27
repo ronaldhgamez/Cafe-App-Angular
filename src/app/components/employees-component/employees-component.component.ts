@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Methods } from '../../classes/methods';
 
 @Component({
   selector: 'app-employees-component',
@@ -9,9 +10,10 @@ export class EmployeesComponentComponent implements OnInit {
 
   public date: string;
   public employee_list: Array<any>;
+  public methods: Methods = new Methods();
 
   constructor() {
-    this.date = "Jueves 23 de agosto, 2021";
+    this.date = this.methods.getDate();
     this.employee_list = [
       {
         "id_card": "207870724", "name": "Ronald Herrera", "display": true
@@ -29,6 +31,8 @@ export class EmployeesComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("hola")
+    console.log(this.methods.getDate());
   }
 
   clickOnEmployee(employee: any) {
