@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-component',
@@ -19,7 +20,8 @@ export class RegisterComponentComponent {
 
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder){ }
 
   registro() {
     console.log(this.miFormulario.value);
