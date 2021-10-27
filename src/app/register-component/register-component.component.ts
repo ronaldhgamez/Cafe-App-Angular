@@ -19,6 +19,9 @@ export class RegisterComponentComponent implements OnInit {
     const emergency = (<HTMLInputElement>document.getElementById("emergency")).value;
     const age = (<HTMLInputElement>document.getElementById("age")).value;
 
-    
+    const employee = {
+      name, card_id, tel, emergency, age
+    }
+    console.log(employee);
   }
 }
