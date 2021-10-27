@@ -1,12 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-component',
   templateUrl: './register-component.component.html',
   styleUrls: ['./register-component.component.css']
 })
-export class RegisterComponentComponent implements OnInit {
+export class RegisterComponentComponent {
 
+  miFormulario: FormGroup = this.fb.group({
+    cedula: ['', [Validators.required]],
+    edad: ['', [Validators.required]],
+    nombre: ['', [Validators.required]],
+    telefono: ['', [Validators.required]],
+    telefonoEmergencia: ['', [Validators.required]],
+    fechaIngreso: ['', [Validators.required]],
+    genero: ['', [Validators.required]]
+
+  });
+
+  constructor(private fb: FormBuilder) { }
+
+  registro() {
+    console.log(this.miFormulario.value);
+    console.log(this.miFormulario.valid);
+  }
+
+
+
+
+/* 
   constructor() { }
 
   ngOnInit(): void {
@@ -23,5 +46,5 @@ export class RegisterComponentComponent implements OnInit {
       name, card_id, tel, emergency, age
     }
     console.log(employee);
-  }
+  } */
 }
