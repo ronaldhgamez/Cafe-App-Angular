@@ -9,8 +9,8 @@
   <div class="card shadow margin-top">
     <form type="submit" action="" [formGroup]="miFormulario">
       <h4>Ingrese credenciales</h4>
-      <input  type="text"  formControlName="usuario" placeholder="usuario">
-      <input  type="text" formControlName="contrasena" placeholder="contraseña" >
+      <input  id="username" type="text"  formControlName="usuario" placeholder="usuario">
+      <input  id="password" type="text" formControlName="contrasena" placeholder="contraseña" >
       <button class="btn2" type="submit" [disabled]="miFormulario.invalid" (click)="login()" >Ingresar</button>
     </form>
   </div>

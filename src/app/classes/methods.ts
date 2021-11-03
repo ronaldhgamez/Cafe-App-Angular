@@ -31,4 +31,10 @@ export class Methods {
     return `${dia[this.dateDay.getDay()]}, ${this.dateDay.getDate()} de ${mes[this.dateDay.getMonth()]}`
   }
 
+  public quitarAcentos(cadena: string) {
+    const acentos:any = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U' };
+    return cadena.split('').map(letra => acentos[letra] || letra).join('').toString();
+  }
+
+
 }

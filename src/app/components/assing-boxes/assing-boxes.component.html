@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<body>
+
+  <nav class="menu shadow">
+    <span class="menu-title">
+      <h1>Asignación diaria de cajuelas</h1>
+    </span>
+  </nav>
+
+  <div>
+    <br />
+    <h3>{{date}}</h3>
+  </div>
+
+  <!-- Search panel -->
+  <div class="panel_card">
+    <input class="input search" id="search_input" placeholder="Buscar por nombre o cédula" (keyup)="filter()"
+      spellcheck="false">
+    <span class="material-icons search_icon">search</span>
+
+    <button class="edit_button rounded clear_button rounded" (click)="restartFilter()">
+      <span class="material-icons edit_icon">close</span>
+    </button>
+  </div>
+  <br>
+
+  <input id="inp_boxes" value="0.00" type="number" style="display: none;">
+
+
+  <div class="panel_card shadow">
+    <table id="workers">
+      <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Cant. Cajuelas</th>
+      </tr>
+      <tr *ngFor="let worker of workers">
+        <td *ngIf="worker.display">{{worker.id_card}}</td>
+        <td *ngIf="worker.display">{{worker.name}}</td>
+        <td *ngIf="worker.display">
+          <div>
+            <input type="number" style="width: 15%; text-align: center;" value="{{worker.total}}" disabled>
+            <span *ngIf="!worker.assigned">?</span>
+            <span *ngIf="!worker.isPresent" style="color: #b80f26;">no trabajó</span>
+            <span *ngIf="worker.isPresent && worker.assigned" style="color: #004D8A;">asignado</span>
+            <button (click)="asignBoxes(worker)">Asignar</button>
+          </div>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+</body>
