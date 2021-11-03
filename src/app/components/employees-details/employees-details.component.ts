@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // CLI imports router
+import { ActivatedRoute, Router } from '@angular/router'; // CLI imports router
 
 @Component({
   selector: 'app-employees-details',
@@ -17,24 +17,19 @@ export class EmployeesDetailsComponent implements OnInit {
   public isEditing: boolean;
 
 
-  constructor(private router: ActivatedRoute) {
+  constructor(private router: ActivatedRoute, private router2: Router) {
 
     this.id = this.router.snapshot.paramMap.get('id') || "";
-    this.router.paramMap.subscribe((paramMap: any) => {
-      const { params } = paramMap;
-      console.log(paramMap);
-    })
-    this.name = "Ronald Herrera Gámez";
-    
-    this.card_id = "2017870724";
-    this.tel = "60102556";
-    this.emergency = "2014588600";
-    this.age = 34;
+    this.name = "";
+    this.card_id = "";
+    this.tel = "";
+    this.emergency = "";
+    this.age = 0;
     this.isEditing = false;
   }
 
-  ngOnInit(): void {
-    console.log(this.id + "dfa")
+  async ngOnInit() {
+    console.log("id: " + this.id)
   }
 
   saveNewValues() {
@@ -50,4 +45,7 @@ export class EmployeesDetailsComponent implements OnInit {
     console.log(x);
   }
 
+  back() {
+    this.router2.navigateByUrl('/employees');
+  }
 }

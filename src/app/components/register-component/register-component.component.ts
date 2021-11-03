@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -20,8 +21,9 @@ export class RegisterComponentComponent {
 
   });
 
-  constructor(
-    private fb: FormBuilder){ }
+  constructor(private fb: FormBuilder, private router: Router) {
+
+  }
 
   registro() {
     console.log(this.miFormulario.value);
@@ -29,24 +31,26 @@ export class RegisterComponentComponent {
   }
 
 
-
-
-/* 
-  constructor() { }
-
-  ngOnInit(): void {
+  back() {
+    this.router.navigateByUrl('/employees');
   }
 
-  saveEmployee() {
-    const name = (<HTMLInputElement>document.getElementById("name")).value;
-    const card_id = (<HTMLInputElement>document.getElementById("card_id")).value;
-    const tel = (<HTMLInputElement>document.getElementById("tel")).value;
-    const emergency = (<HTMLInputElement>document.getElementById("emergency")).value;
-    const age = (<HTMLInputElement>document.getElementById("age")).value;
-
-    const employee = {
-      name, card_id, tel, emergency, age
+  /* 
+    constructor() { }
+  
+    ngOnInit(): void {
     }
-    console.log(employee);
-  } */
+  
+    saveEmployee() {
+      const name = (<HTMLInputElement>document.getElementById("name")).value;
+      const card_id = (<HTMLInputElement>document.getElementById("card_id")).value;
+      const tel = (<HTMLInputElement>document.getElementById("tel")).value;
+      const emergency = (<HTMLInputElement>document.getElementById("emergency")).value;
+      const age = (<HTMLInputElement>document.getElementById("age")).value;
+  
+      const employee = {
+        name, card_id, tel, emergency, age
+      }
+      console.log(employee);
+    } */
 }

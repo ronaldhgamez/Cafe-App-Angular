@@ -3,13 +3,14 @@
   <div class="card shadow margin-top">
     <h4>Registro de trabajador</h4>
     <form type="submit" action="" [formGroup]="miFormulario">
-      <input  type="text"  formControlName="nombre" placeholder="nombre completo" required>
-      <input  type="text" formControlName="cedula" placeholder="cédula" required>
-      <input  type="text" formControlName="telefono" placeholder="teléfono" required>
-      <input  type="text" formControlName="telefonoEmergencia" placeholder="teléfono de emergencia">
-      <input  type="number" formControlName="edad" placeholder="edad" min="10" max="100" required>
+      <input type="text" formControlName="nombre" placeholder="nombre completo" required>
+      <input type="text" formControlName="cedula" placeholder="cédula" required>
+      <input type="text" formControlName="telefono" placeholder="teléfono" required>
+      <input type="text" formControlName="telefonoEmergencia" placeholder="teléfono de emergencia">
+      <input type="number" formControlName="edad" placeholder="edad" min="10" max="100" required>
       <button class="btn2" type="submit" (click)="registro()">Registrar</button>
     </form>
+    <button class="btn2" (click)="back()">Regresar</button>
   </div>
 
 </body>
