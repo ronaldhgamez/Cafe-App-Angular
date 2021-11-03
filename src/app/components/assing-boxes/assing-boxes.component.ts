@@ -127,16 +127,12 @@ export class AssingBoxesComponent implements OnInit {
 
     this.search = this.search.toLowerCase();
     this.search = this.methods.quitarAcentos(this.search);
-    console.log(this.search);
-
+    
     var worlds_array = this.search.split(" ");
 
     for (let worker of this.workers) {
       let worker_name = this.methods.quitarAcentos(worker.name.trim().toLowerCase());
       let worker_id = worker.id_card.trim();
-
-      console.log(worker_id);
-      console.log(worker_name);
 
       // check if the string contains the id card or the name
       var isEvery = worlds_array.every(w => worker_name.includes(w));

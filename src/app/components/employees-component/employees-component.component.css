@@ -28,6 +28,12 @@ input {
   border-radius: 4px;
 }
 
+input.search {
+  margin-left: 4%;
+  width: 50%;
+  padding: 1%;
+}
+
 .btn2 {
   background: #3498db;
   width: 125px;
@@ -64,4 +70,16 @@ input {
   .shadow {
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.34);
   }
+}
+
+.clear_button {
+  margin-left: 1%;
+}
+
+.rounded {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 0em;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }

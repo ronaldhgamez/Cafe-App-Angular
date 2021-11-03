@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 <body class="card shadow">
 
   <header>
@@ -6,9 +8,16 @@
 
   <div>
 
-    <div>
-      <input id="input_search" type="search" (keyup)="filter()" placeholder="Buscar por nombre o por cédula">
+    <!-- Search panel -->
+    <div class="panel_card">
+      <input id="search_input" (keyup)="filter()" placeholder="Buscar por nombre o por cédula"
+        spellcheck="false">
+
+      <button class="edit_button rounded clear_button rounded" (click)="restartFilter()">
+        <span class="material-icons edit_icon">close</span>
+      </button>
     </div>
+    <br>
 
     <div>
       <h2>{{date}}</h2>
