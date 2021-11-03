@@ -65,7 +65,7 @@ export class LoginComponentComponent {
         //this.router.navigateByUrl('/rutadelaventana');
           console.log("Abriendo menú del Administrador")
           //This is where its broke - below:
-          this.router.navigateByUrl('/employees/details');
+           this.router.navigateByUrl('/employees');
       } else {
         alert("Incorrect credentials");
       }
