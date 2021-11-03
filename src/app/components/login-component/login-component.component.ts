@@ -23,8 +23,8 @@ export class LoginComponentComponent {
     this.username = "";
     this.password = "";
   }
-
-  /* login() {
+/*
+  login() {
     console.log(this.miFormulario.value);
     const { usuario, contrasena } = this.miFormulario.value;
 
@@ -34,10 +34,11 @@ export class LoginComponentComponent {
         console.log(ok);
 
         if (ok === true) {
+          alert("Welcome admin!");
           //this.router.navigateByUrl('/rutadelaventana');
           console.log("Abriendo menú del Administrador")
           //This is where its broke - below:
-          this.router.navigateByUrl('/employees/details');
+          this.router.navigateByUrl('/employees');
         } else {
           Swal.fire('Error', ok, 'error');
           //TODO mostrar mensaje de error
@@ -65,10 +66,10 @@ export class LoginComponentComponent {
         //this.router.navigateByUrl('/rutadelaventana');
           console.log("Abriendo menú del Administrador")
           //This is where its broke - below:
-           this.router.navigateByUrl('/employees');
+          this.router.navigateByUrl('/employees');
       } else {
         alert("Incorrect credentials");
       }
-    } 
+    }  
 
 }
