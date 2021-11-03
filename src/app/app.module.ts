@@ -31,7 +31,7 @@ const routes: Routes = [
     component: AssingBoxesComponent
   },
   {
-    path: 'register-component',
+    path: 'register',
     component: RegisterComponentComponent
   },
 ]; // sets up routes constant where you define your routes

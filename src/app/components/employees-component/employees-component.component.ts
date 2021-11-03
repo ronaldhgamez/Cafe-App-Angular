@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Methods } from '../../classes/methods';
 
 @Component({
@@ -12,7 +13,7 @@ export class EmployeesComponentComponent implements OnInit {
   public employee_list: Array<any>;
   public methods: Methods = new Methods();
 
-  constructor() {
+  constructor(private router: Router) {
     this.date = this.methods.getDate();
     this.employee_list = [
       {
@@ -31,17 +32,20 @@ export class EmployeesComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.methods.getDate());
   }
 
   clickOnEmployee(employee: any) {
     console.log(employee);
-
+    this.router.navigateByUrl(`/employees/details/${employee.id_card}`);
   }
 
   public filter() {
     const value = (<HTMLInputElement>document.getElementById("input_search")).value
     console.log(value);
 
+  }
+
+  public goTo(r: string) {
+    this.router.navigateByUrl(r);
   }
 }

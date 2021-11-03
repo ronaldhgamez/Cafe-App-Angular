@@ -22,7 +22,7 @@
     <input id="age" type="number" value={{age}} min="10" max="100" required [disabled]="isEditing ? null : true">
     <br><br>
 
-    <button class="btn2">Volver</button>
+    <button class="btn2" (click)="back()">Volver</button>
     <button class="btn2" (click)="isEditing=!isEditing">Editar</button>
     <button class="btn2" (click)="saveNewValues()" *ngIf="isEditing">Guardar</button>
 

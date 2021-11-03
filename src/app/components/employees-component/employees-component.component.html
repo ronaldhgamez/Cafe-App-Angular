@@ -12,8 +12,9 @@
 
     <div>
       <h2>{{date}}</h2>
-      <button>Asignación de cajuelas</button>
+      <button (click)="goTo('/assign-daily-boxes')">Asignación de cajuelas</button>
       <button>Ver salarios</button>
+      <button (click)="goTo('/register')">Registrar empleado</button>
     </div>
   </div>
 
@@ -24,7 +25,6 @@
         <span>{{employee.id_card}} {{employee.name}}</span>
         <button class='btn2' (click)="clickOnEmployee(employee)">Ver</button>
       </div>
-
     </div>
   </div>
 
