@@ -50,3 +50,18 @@ input {
 .btn2:active {
   background: #0a5180;
 }
+
+
+/* cuando la pantalla tenga una resolucion menor a 900px aplicar estos estilos */
+
+@media screen and (max-width: 900px) {
+  .card {
+    border-radius: 0px;
+    width: 100%;
+    background-color: white;
+  }
+
+  .shadow {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.34);
+  }
+}

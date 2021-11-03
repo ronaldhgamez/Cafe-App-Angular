@@ -31,7 +31,6 @@ export class EmployeesComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("hola")
     console.log(this.methods.getDate());
   }
 
