@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Methods } from '../../classes/methods';
+import { ApiCalls } from 'src/app/classes/api-calls';
 
 @Component({
   selector: 'app-employees-component',
@@ -13,32 +14,26 @@ export class EmployeesComponentComponent implements OnInit {
   public employee_list: Array<any>;
   public methods: Methods = new Methods();
   public search: string;
+  private api_calls: ApiCalls;
 
   constructor(private router: Router) {
     this.date = this.methods.getDate();
     this.search = "";
-    this.employee_list = [
-      {
-        "id_card": "207870712", "name": "Jose Herrera", "display": true
-      },
-      {
-        "id_card": "207870723", "name": "Luz Herrera", "display": true
-      },
-      {
-        "id_card": "207870734", "name": "Alicia Gámez", "display": true
-      },
-      {
-        "id_card": "207870745", "name": "Maria Herrera", "display": true
-      }
-    ];
+    this.employee_list = [];
+    this.api_calls = new ApiCalls();
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    const EMPLOYEES: any = await this.api_calls.getEmployees();
+    EMPLOYEES.map((emp: any) => {
+      emp.display = true;
+    });
+    this.employee_list = EMPLOYEES;
   }
 
   clickOnEmployee(employee: any) {
     console.log(employee);
-    this.router.navigateByUrl(`/employees/details/${employee.id_card}`);
+    this.router.navigateByUrl(`/employees/details/${employee.pin}`);
   }
 
   filter() {
@@ -56,7 +51,7 @@ export class EmployeesComponentComponent implements OnInit {
     var worlds_array = this.search.split(" ");
 
     for (let worker of this.employee_list) {
-      let worker_name = this.methods.quitarAcentos(worker.name.trim().toLowerCase());
+      let worker_name = this.methods.quitarAcentos(worker.fullname.trim().toLowerCase());
       let worker_id = worker.id_card.trim();
 
       // check if the string contains the id card or the name

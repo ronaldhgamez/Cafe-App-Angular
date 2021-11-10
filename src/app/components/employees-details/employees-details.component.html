@@ -2,25 +2,33 @@
 
   <div class="card shadow">
 
-    <label for="name">Nombre</label><br>
-    <input id="name" value={{name}} required [disabled]="isEditing ? null : true">
+    <label for="fullname">Nombre completo</label><br>
+    <input id="fullname" required [disabled]="isEditing ? null : true">
     <br><br>
 
-    <label for="card_id">Cédula</label><br>
-    <input id="card_id" value={{card_id}} required [disabled]="isEditing ? null : true">
+    <label for="id_card">Cédula</label><br>
+    <input id="id_card" required [disabled]="isEditing ? null : true">
     <br><br>
 
-    <label for="tel">Teléfono</label><br>
-    <input id="tel" value={{tel}} required [disabled]="isEditing ? null : true">
+    <label for="phone_num">Teléfono</label><br>
+    <input id="phone_num" required [disabled]="isEditing ? null : true">
     <br><br>
 
-    <label for="emergency">Teléfono de emergencia</label><br>
-    <input id="emergency" value={{emergency}} [disabled]="isEditing ? null : true">
+    <label for="emergency_num">Teléfono de emergencia</label><br>
+    <input id="emergency_num" [disabled]="isEditing ? null : true">
     <br><br>
 
-    <label for="age">Edad</label><br>
-    <input id="age" type="number" value={{age}} min="10" max="100" required [disabled]="isEditing ? null : true">
-    <br><br>
+    <br>
+    Género
+    <select id="gender" name="gender" [disabled]="isEditing ? null : true">
+      <option value="M">Masculino</option>
+      <option value="F">Femenino</option>
+      <option value="Otro">Otro</option>
+    </select>
+    <br>
+
+    <label for="birthdate">Fecha Nacimiento</label>
+    <input type="date" id="birthdate" placeholder="Fecha nacimiento" required [disabled]="isEditing ? null : true">
 
     <button class="btn2" (click)="back()">Volver</button>
     <button class="btn2" (click)="isEditing=!isEditing">Editar</button>

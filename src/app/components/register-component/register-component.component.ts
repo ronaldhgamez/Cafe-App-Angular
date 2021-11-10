@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+/* import { FormBuilder, FormGroup, Validators } from '@angular/forms'; */
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+/* import { AuthService } from '../../services/auth.service'; */
+import { ApiCalls } from 'src/app/classes/api-calls';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-component',
@@ -10,24 +12,10 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponentComponent {
 
-  miFormulario: FormGroup = this.fb.group({
-    cedula: ['', [Validators.required]],
-    edad: ['', [Validators.required]],
-    nombre: ['', [Validators.required]],
-    telefono: ['', [Validators.required]],
-    telefonoEmergencia: ['', [Validators.required]],
-    fechaIngreso: ['', [Validators.required]],
-    genero: ['', [Validators.required]]
-
-  });
-
-  constructor(private fb: FormBuilder, private router: Router) {
-
-  }
-
-  registro() {
-    console.log(this.miFormulario.value);
-    console.log(this.miFormulario.valid);
+  private api_calls: ApiCalls;
+  
+  constructor(/* private fb: FormBuilder, */ private router: Router) {
+    this.api_calls = new ApiCalls();
   }
 
 
@@ -35,22 +23,37 @@ export class RegisterComponentComponent {
     this.router.navigateByUrl('/employees');
   }
 
-  /* 
-    constructor() { }
-  
-    ngOnInit(): void {
+
+  async saveEmployee() {
+    const fullname = (<HTMLInputElement>document.getElementById("fullname")).value;
+    const id_card = (<HTMLInputElement>document.getElementById("id_card")).value;
+    const phone_num = (<HTMLInputElement>document.getElementById("phone_num")).value;
+    const emergency_num = (<HTMLInputElement>document.getElementById("emergency_num")).value;
+    const gender = (<HTMLInputElement>document.getElementById("gender")).value;
+    const birthdate = (<HTMLInputElement>document.getElementById("birthdate")).value;
+
+    if(fullname.trim() == "" || phone_num.trim() == "" || gender.trim() == "" || birthdate.trim() == "" ) {
+      Swal.fire("Advertencia", "Campos imcompletos");
+      return;
     }
-  
-    saveEmployee() {
-      const name = (<HTMLInputElement>document.getElementById("name")).value;
-      const card_id = (<HTMLInputElement>document.getElementById("card_id")).value;
-      const tel = (<HTMLInputElement>document.getElementById("tel")).value;
-      const emergency = (<HTMLInputElement>document.getElementById("emergency")).value;
-      const age = (<HTMLInputElement>document.getElementById("age")).value;
-  
-      const employee = {
-        name, card_id, tel, emergency, age
-      }
-      console.log(employee);
-    } */
+    const employee = {
+      fullname, id_card, phone_num, emergency_num, gender, birthdate
+    }
+    const res = await this.api_calls.addEmployee(employee);
+    if(res.inserted) {
+      Swal.fire("Mensaje", "Empleado registrado. Pin de acceso generado: " + res.pin);
+      this.clearInputs();
+    } else {
+      Swal.fire("Mensaje", "No se pudo registrar el empleado. " + res.msg);
+    }
+  }
+
+  clearInputs() {
+    (<HTMLInputElement>document.getElementById("fullname")).value = "";
+    (<HTMLInputElement>document.getElementById("id_card")).value = "";
+    (<HTMLInputElement>document.getElementById("phone_num")).value = "";
+    (<HTMLInputElement>document.getElementById("emergency_num")).value = "";
+    (<HTMLInputElement>document.getElementById("gender")).value = "";
+    (<HTMLInputElement>document.getElementById("birthdate")).value = "";
+  }
 }

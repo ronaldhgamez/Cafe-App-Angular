@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+/* import { FormBuilder, FormGroup, Validators } from '@angular/forms'; */
 import { Router } from '@angular/router'; // CLI imports router
-import { AuthService } from 'src/app/services/auth.service';
+/* import { AuthService } from 'src/app/services/auth.service'; */
+import { ApiCalls } from 'src/app/classes/api-calls';
 
 import Swal from 'sweetalert2';
 
@@ -12,21 +13,20 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponentComponent {
 
-  miFormulario: FormGroup = this.fb.group({
-    usuario: ['diazr', [Validators.required]],
-    contrasena: ['admin', [Validators.required]]
+  /*  miFormulario: FormGroup = this.fb.group({
+     usuario: ['', [Validators.required]],
+     contrasena: ['', [Validators.required]]
+ 
+   }); */
 
-  });
+  private api_calls: ApiCalls;
 
-  public username: string;
-  public password: string;
-  
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.username = "";
-    this.password = "";
+  constructor(private router: Router) {
+    localStorage.setItem('isLoggedIn', 'false');
+    this.api_calls = new ApiCalls();
   }
 
-  login() {
+  /* login() {
     console.log(this.miFormulario.value);
     const { usuario, contrasena } = this.miFormulario.value;
 
@@ -39,22 +39,20 @@ export class LoginComponentComponent {
           Swal.fire('Error', ok, 'error');
         }
       });
-  }
+  } */
 
-  /* login2() {
-    this.username = (<HTMLInputElement>document.getElementById("username")).value;
-    this.password = (<HTMLInputElement>document.getElementById("password")).value;
+  async login() {
+    var username = (<HTMLInputElement>document.getElementById("username")).value;
+    var password = (<HTMLInputElement>document.getElementById("password")).value;
 
-    if (this.username === "admin" && this.password === "pass") {
-      alert("Welcome admin!");
-      //this.router.navigateByUrl('/rutadelaventana');
-      console.log("Abriendo menú del Administrador")
-      //This is where its broke - below:
+    const res = await this.api_calls.validateAdmin(username, password);
+
+    if (res.valid) {
+      localStorage.setItem('isLoggedIn', 'true');
       this.router.navigateByUrl('/employees');
     } else {
-      alert("Incorrect credentials");
+      Swal.fire("Mensaje", res.msg);
     }
-
-  } */
+  }
 
 }

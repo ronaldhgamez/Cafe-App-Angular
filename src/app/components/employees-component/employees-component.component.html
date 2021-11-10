@@ -31,7 +31,7 @@
   <div>
     <div *ngFor="let employee of employee_list">
       <div class="card shadow" *ngIf="employee.display == true">
-        <span>{{employee.id_card}} {{employee.name}}</span>
+        <span>{{employee.id_card}} {{employee.fullname}}</span>
         <button class='btn2' (click)="clickOnEmployee(employee)">Ver</button>
       </div>
     </div>

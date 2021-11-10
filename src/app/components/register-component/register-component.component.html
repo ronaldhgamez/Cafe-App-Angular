@@ -2,14 +2,24 @@
 
   <div class="card shadow margin-top">
     <h4>Registro de trabajador</h4>
-    <form type="submit" action="" [formGroup]="miFormulario">
-      <input type="text" formControlName="nombre" placeholder="nombre completo" required>
-      <input type="text" formControlName="cedula" placeholder="cédula" required>
-      <input type="text" formControlName="telefono" placeholder="teléfono" required>
-      <input type="text" formControlName="telefonoEmergencia" placeholder="teléfono de emergencia">
-      <input type="number" formControlName="edad" placeholder="edad" min="10" max="100" required>
-      <button class="btn2" type="submit" (click)="registro()">Registrar</button>
-    </form>
+    <div>
+      <input type="text" id="fullname" placeholder="nombre completo" required>
+      <input type="text" id="id_card" placeholder="cédula">
+      <input type="text" id="phone_num" placeholder="teléfono" required>
+      <input type="text" id="emergency_num" placeholder="teléfono de emergencia">
+      <br>
+      Género
+      <select id="gender" name="gender">
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+        <option value="Otro">Otro</option>
+      </select>
+      <br>
+      <label for="birthdate">Fecha Nacimiento</label>
+      <input type="date" id="birthdate" placeholder="fecha nacimiento" required>
+      <button class="btn2" type="submit" (click)="saveEmployee()">Registrar</button>
+    </div>
+
     <button class="btn2" (click)="back()">Regresar</button>
   </div>
 

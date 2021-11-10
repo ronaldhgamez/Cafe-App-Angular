@@ -37,7 +37,7 @@
       </tr>
       <tr *ngFor="let worker of workers">
         <td *ngIf="worker.display">{{worker.id_card}}</td>
-        <td *ngIf="worker.display">{{worker.name}}</td>
+        <td *ngIf="worker.display">{{worker.fullname}}</td>
         <td *ngIf="worker.display">
           <div>
             <input type="number" style="width: 15%; text-align: center;" value="{{worker.total}}" disabled>

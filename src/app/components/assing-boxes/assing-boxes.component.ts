@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Methods } from 'src/app/classes/methods';
 import Swal from 'sweetalert2';
+import { ApiCalls } from 'src/app/classes/api-calls';
 
 @Component({
   selector: 'app-assing-boxes',
@@ -10,72 +11,37 @@ import Swal from 'sweetalert2';
 export class AssingBoxesComponent implements OnInit {
 
   public methods: Methods;
+  private api_calls: ApiCalls;
   public date: string;
   public workers: Array<any>;
   private search: string;
-  private total: number;
 
   constructor() {
     this.methods = new Methods();
     this.date = this.methods.getDate();
     this.search = "";
-    this.total = 0;
+    this.api_calls = new ApiCalls();
     this.workers = [
       {
-        "id": "W45555",
+        "pin": "5555",
         "id_card": "207870724",
-        "name": "Ronald Herrera Gámez",
-        "total": 0,
+        "fullname": "Ronald Herrera Gámez",
+        "total": 2.31,
         "display": true,
         "isPresent": true,
-        "assigned": false
-      },
-      {
-        "id": "W45542",
-        "id_card": "22370724",
-        "name": "Kevin Gámez",
-        "total": 20,
-        "display": true,
-        "isPresent": true,
-        "assigned": false
-      },
-      {
-        "id": "W4554",
-        "id_card": "504870724",
-        "name": "Rose Campos",
-        "total": 11,
-        "display": true,
-        "isPresent": true,
-        "assigned": false
-      },
-      {
-        "id": "W45545",
-        "id_card": "23787072",
-        "name": "Martha Diaz",
-        "total": 0,
-        "display": true,
-        "isPresent": true,
-        "assigned": false
-      },
-      {
-        "id": "W45555",
-        "id_card": "207870724",
-        "name": "Ronald Herrera Gámez",
-        "total": 0,
-        "display": true,
-        "isPresent": true,
-        "assigned": false
+        "assigned": true
       }
     ];
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    const EMPLOYEES: any = await this.api_calls.getEmployees();
   }
 
   public asignBoxes(worker: any) {
     console.log(worker)
     Swal.fire({
-      title: `<span>${worker.id_card} - ${worker.name}</span>`,
+      title: `<span>${worker.id_card} - ${worker.fullname}</span>`,
       html:
         `
         <div class="card shadow" style="text-align: center;">
@@ -131,7 +97,7 @@ export class AssingBoxesComponent implements OnInit {
     var worlds_array = this.search.split(" ");
 
     for (let worker of this.workers) {
-      let worker_name = this.methods.quitarAcentos(worker.name.trim().toLowerCase());
+      let worker_name = this.methods.quitarAcentos(worker.fullname.trim().toLowerCase());
       let worker_id = worker.id_card.trim();
 
       // check if the string contains the id card or the name
