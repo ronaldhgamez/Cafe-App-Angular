@@ -66,6 +66,51 @@ export class ApiCalls {
     return await response.json();
   }
 
+  public async getDailyAssignments(date: string) {
+    const response = await fetch(`${this.BASE_URL}/api/getDailyAssignments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ date }),
+      redirect: 'follow'
+    });
+    return await response.json();
+  }
 
+  public async createDailyCollections(date: string) {
+    const response = await fetch(`${this.BASE_URL}/api/createDailyCollections`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ date }),
+      redirect: 'follow'
+    });
+    return (await response.json()).added;
+  }
 
+  public async assignToDidNotWork(date: string, pin: string) {
+    const response = await fetch(`${this.BASE_URL}/api/assignToDidNotWork`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ date, pin }),
+      redirect: 'follow'
+    });
+    return (await response.json()).setToDidNotWork;
+  }
+
+  public async assignTotalBoxes(date: string, pin: string, total: number) {
+    const response = await fetch(`${this.BASE_URL}/api/assignTotalBoxes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ date, pin, total }),
+      redirect: 'follow'
+    });
+    return (await response.json()).assigned;
+  }
 }

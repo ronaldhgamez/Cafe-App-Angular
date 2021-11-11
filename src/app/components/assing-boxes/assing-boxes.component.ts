@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Methods } from 'src/app/classes/methods';
 import Swal from 'sweetalert2';
 import { ApiCalls } from 'src/app/classes/api-calls';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assing-boxes',
@@ -12,30 +13,27 @@ export class AssingBoxesComponent implements OnInit {
 
   public methods: Methods;
   private api_calls: ApiCalls;
-  public date: string;
+
+  public dateString: string; // Monday, 12
+  public today: string;
+  public selectedDate: string;
+
   public workers: Array<any>;
   private search: string;
 
-  constructor() {
+  constructor(private router: Router) {
     this.methods = new Methods();
-    this.date = this.methods.getDate();
-    this.search = "";
     this.api_calls = new ApiCalls();
-    this.workers = [
-      {
-        "pin": "5555",
-        "id_card": "207870724",
-        "fullname": "Ronald Herrera Gámez",
-        "total": 2.31,
-        "display": true,
-        "isPresent": true,
-        "assigned": true
-      }
-    ];
+    this.dateString = this.methods.getDate();
+    this.today = this.methods.getDate2();
+    this.selectedDate = this.today;
+    this.search = "";
+    this.workers = [];
   }
 
   async ngOnInit() {
-    const EMPLOYEES: any = await this.api_calls.getEmployees();
+    this.today = this.methods.getDate2();
+    this.showDailyData(this.today);
   }
 
   public asignBoxes(worker: any) {
@@ -63,21 +61,33 @@ export class AssingBoxesComponent implements OnInit {
         '<i class="fa fa-thumbs-down">No trabajó</i>',
       cancelButtonAriaLabel: 'Thumbs down',
       preConfirm: function () {
-        console.log((<HTMLInputElement>document.getElementById("inp_boxes_2")).value);
         worker.total = parseFloat((<HTMLInputElement>document.getElementById("inp_boxes_2")).value);
       }
     }).then((result) => {
       var dismiss = String(result.dismiss);
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        worker.isPresent = true;
-        worker.assigned = true;
-        Swal.fire('Saved!', '', 'success');
+        (async () => {
+          const assigned = await this.api_calls.assignTotalBoxes(this.selectedDate, worker.pin, worker.total)
+          if (assigned) {
+            worker.isPresent = true;
+            worker.assigned = true;
+            Swal.fire('Se asignaron las cajuelas correctamente!', '', 'info')
+          } else
+            Swal.fire('Intente nuevamente', '', 'info');
+        })();
+
       } else if (dismiss == "cancel") {
-        worker.isPresent = false;
-        worker.assigned = true;
-        worker.total = 0;
-        Swal.fire('Se asignó a no trabajó!', '', 'info')
+        (async () => {
+          const assigned = await this.api_calls.assignToDidNotWork(this.selectedDate, worker.pin)
+          if (assigned) {
+            worker.isPresent = false;
+            worker.total = 0;
+            worker.assigned = true;
+            Swal.fire('Se asignó a no trabajó!', '', 'info')
+          } else
+            Swal.fire('Intente nuevamente', '', 'info')
+        })();
       }
     })
   }
@@ -93,7 +103,7 @@ export class AssingBoxesComponent implements OnInit {
 
     this.search = this.search.toLowerCase();
     this.search = this.methods.quitarAcentos(this.search);
-    
+
     var worlds_array = this.search.split(" ");
 
     for (let worker of this.workers) {
@@ -107,10 +117,37 @@ export class AssingBoxesComponent implements OnInit {
     }
   }
 
+  async showDailyData(date: string) {
+    this.workers = [];
+    console.log(date);
+    await this.api_calls.createDailyCollections(date);
+    const DATA = await this.api_calls.getDailyAssignments(date);
+    DATA.map((emp: any) => { emp.display = true });
+    this.workers = DATA;
+  }
+
+  changeDate() {
+    const selectedD = (<HTMLInputElement>document.getElementById("datee")).value;
+    const today = new Date(this.today);
+    const selected = new Date(selectedD);
+
+    if (today < selected) {
+      (<HTMLInputElement>document.getElementById("datee")).value = this.today;
+      Swal.fire("Solo puede seleccionar la fecha actual o atrás de esta", '', 'info')
+    } else {
+      this.selectedDate = selectedD;
+      this.showDailyData(this.selectedDate);
+    }
+  }
+
   restartFilter() {
     this.search = "";
     (<HTMLInputElement>document.getElementById("search_input")).value = "";
     this.displayAllWorkers();
+  }
+
+  back() {
+    this.router.navigateByUrl('/employees')
   }
 
   private displayAllWorkers() {
@@ -120,15 +157,14 @@ export class AssingBoxesComponent implements OnInit {
   }
 
   public plus(worker: any) {
-    worker.total = worker.total + 0.25;
+    /* worker.total = worker.total + 0.25; */
   }
 
   public minus(worker: any) {
-    let total: number = worker.total + 0.25;
+    /* let total: number = worker.total + 0.25;
     if (total >= 0) {
       worker.total = total;
-    }
+    } */
   }
-
 
 }

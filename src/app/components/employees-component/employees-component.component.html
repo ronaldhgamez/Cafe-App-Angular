@@ -28,14 +28,36 @@
   </div>
 
   <!-- Employees list -->
-  <div>
+
+  <br>
+  <div class="panel_card shadow">
+    <table id="workers">
+      <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Opción</th>
+      </tr>
+      <tr *ngFor="let employee of employee_list">
+        <td *ngIf="employee.display">{{employee.id_card}}</td>
+        <td *ngIf="employee.display">{{employee.fullname}}</td>
+        <td *ngIf="employee.display">
+          <div>
+            <button class='btn2' (click)="clickOnEmployee(employee)">Ver</button>
+          </div>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <!-- <div>
     <div *ngFor="let employee of employee_list">
       <div class="card shadow" *ngIf="employee.display == true">
         <span>{{employee.id_card}} {{employee.fullname}}</span>
         <button class='btn2' (click)="clickOnEmployee(employee)">Ver</button>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 </body>

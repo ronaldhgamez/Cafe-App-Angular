@@ -10,7 +10,11 @@
 
   <div>
     <br />
-    <h3>{{date}}</h3>
+    <h3>{{dateString}}</h3>
+    <input id="datee" type="date" value="{{selectedDate}}" (change)="changeDate()">
+    <br />
+    <br />
+    <button (click)="back()">Volver</button>
   </div>
 
   <!-- Search panel -->
@@ -41,8 +45,8 @@
         <td *ngIf="worker.display">
           <div>
             <input type="number" style="width: 15%; text-align: center;" value="{{worker.total}}" disabled>
-            <span *ngIf="!worker.assigned">?</span>
-            <span *ngIf="!worker.isPresent" style="color: #b80f26;">no trabajó</span>
+            <span *ngIf="!worker.assigned && !worker.isPresent">?</span>
+            <span *ngIf="!worker.isPresent && worker.assigned" style="color: #b80f26;">no trabajó</span>
             <span *ngIf="worker.isPresent && worker.assigned" style="color: #004D8A;">asignado</span>
             <button (click)="asignBoxes(worker)">Asignar</button>
           </div>

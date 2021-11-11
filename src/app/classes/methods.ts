@@ -31,6 +31,10 @@ export class Methods {
     return `${dia[this.dateDay.getDay()]}, ${this.dateDay.getDate()} de ${mes[this.dateDay.getMonth()]}`
   }
 
+  public getDate2() {
+    return this.dateDay.getFullYear()+'-'+(this.dateDay.getMonth()+1)+'-'+this.dateDay.getDate();
+  }
+
   public quitarAcentos(cadena: string) {
     const acentos:any = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U' };
     return cadena.split('').map(letra => acentos[letra] || letra).join('').toString();
